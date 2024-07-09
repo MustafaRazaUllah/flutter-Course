@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/modules/home/home_view.dart';
 
 import 'Components/custom_textfiled.dart';
 
@@ -57,7 +58,19 @@ class LoginView extends StatelessWidget {
                   const SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      // Navigator.pushAndRemoveUntil(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const HomeView(),
+                      //   ),
+                      //   (route) => false,
+                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>  HomeView(),
+                        ),
+                      );
                     },
                     child: Container(
                       height: 50,
