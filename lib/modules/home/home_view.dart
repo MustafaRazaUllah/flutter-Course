@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application/modules/home/home2_view.dart';
 import 'package:flutter_application/utils/custom_toast.dart';
+import 'package:glassmorphism/glassmorphism.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -11,6 +14,9 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int counter = 0;
+  bool isChecked = false;
+
+  MCQs mcqs = MCQs.other;
 
   @override
   Widget build(BuildContext context) {
@@ -60,199 +66,355 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Container(
-              height: 200,
-              width: 200,
-              decoration: BoxDecoration(
-                color: Colors.deepPurple,
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(
-                  color: Colors.amber,
-                  width: 5,
-                ),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 20,
-                    spreadRadius: 2,
-                    offset: Offset(4, 4),
-                  ),
-                ],
-                gradient: const LinearGradient(
-                  colors: [
-                    Colors.pink,
-                    Colors.purple,
-                    Colors.red,
-                  ],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                ),
+        children: [
+          const SizedBox(height: 20),
+          Column(
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: const Text("Click"),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.5),
-                child:
-                    // CachedNetworkImage(
-                    //   imageUrl:
-                    //       "https://fastly.picsum.photos/id/514/200/300.jpg?hmac=2SFAKrM0w5MkU7I_tQM9mq1m6POUDSPrTYu5tb5Sqlg",
-                    //   fit: BoxFit.cover,
-                    //   placeholder: (context, url) =>
-                    //       const CircularProgressIndicator(),
-                    //   errorWidget: (context, url, error) => const Icon(Icons.error),
-                    // ),
-                    Image.network(
-                  "https://fastly.picsum.photos/id/514/200/300.jpg?hmac=2SFAKrM0w5MkU7I_tQM9mq1m6POUDSPrTYu5tb5Sqlg",
-                  // https://fastly.picsum.photos/id/514/200/300.jpg?hmac=2SFAKrM0w5MkU7I_tQM9mq1m6POUDSPrTYu5tb5Sqlg
-                  fit: BoxFit.cover,
-                ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  print("On Pressed");
+                },
+                onLongPress: () {
+                  print("On Long Press");
+                },
+                child: const Text("Click"),
               ),
-            ),
-            const SizedBox(height: 50),
-            Container(
-              height: 200,
-              width: 200,
-              decoration: BoxDecoration(
-                color: Colors.deepPurple,
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(
-                  color: Colors.amber,
-                  width: 5,
-                ),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 20,
-                    spreadRadius: 2,
-                    offset: Offset(4, 4),
-                  ),
-                ],
-                gradient: const LinearGradient(
-                  colors: [
-                    Colors.pink,
-                    Colors.purple,
-                    Colors.red,
-                  ],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                ),
+              const SizedBox(height: 20),
+              OutlinedButton(
+                onPressed: () {},
+                child: const Text("Click"),
               ),
-              child: Stack(
+              const SizedBox(height: 20),
+              Row(
                 children: [
-                  SizedBox.expand(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.5),
-                      child: Image.network(
-                        "https://fastly.picsum.photos/id/514/200/300.jpg?hmac=2SFAKrM0w5MkU7I_tQM9mq1m6POUDSPrTYu5tb5Sqlg",
-                        // https://fastly.picsum.photos/id/514/200/300.jpg?hmac=2SFAKrM0w5MkU7I_tQM9mq1m6POUDSPrTYu5tb5Sqlg
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  Checkbox(
+                    checkColor: Colors.red,
+                    activeColor: Colors.green,
+                    value: isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isChecked = value!;
+                      });
+                    },
                   ),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10, 100, 100, 10),
-                      child: Text(
-                        "data",
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(100, 10, 10, 100),
-                      child: Text(
-                        "new",
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const Text("hello World."),
                 ],
               ),
-            ),
-            const SizedBox(height: 30),
-            GestureDetector(
-              onTap: () {
-                _showMyDialog(context);
-              },
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.amberAccent,
-                  borderRadius: BorderRadius.circular(20),
+              const SizedBox(height: 20),
+              Switch(
+                value: isChecked,
+                onChanged: (bool? val) {
+                  print("object $val");
+                  setState(() {
+                    isChecked = val!;
+                  });
+                },
+              ),
+              const SizedBox(height: 20),
+              CupertinoSwitch(
+                value: isChecked,
+                onChanged: (bool? val) {
+                  setState(() {
+                    isChecked = val!;
+                  });
+                },
+              ),
+              const SizedBox(height: 20),
+              const Text("What's your name ?"),
+              const SizedBox(height: 10),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          title: const Text('Mustafa'),
+                          leading: Radio<MCQs>(
+                            value: MCQs.mustafa,
+                            groupValue: mcqs,
+                            onChanged: (MCQs? value) {
+                              setState(() {
+                                mcqs = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          title: const Text('Ali'),
+                          leading: Radio<MCQs>(
+                            value: MCQs.ali,
+                            groupValue: mcqs,
+                            onChanged: (MCQs? value) {
+                              setState(() {
+                                mcqs = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          title: const Text('Mahnoor'),
+                          leading: Radio<MCQs>(
+                            value: MCQs.mahnoor,
+                            groupValue: mcqs,
+                            onChanged: (MCQs? value) {
+                              setState(() {
+                                mcqs = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          title: const Text('Other'),
+                          leading: Radio<MCQs>(
+                            value: MCQs.other,
+                            groupValue: mcqs,
+                            onChanged: (MCQs? value) {
+                              setState(() {
+                                mcqs = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  showDialog<void>(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return DatePickerDialog(
+                        restorationId: 'date_picker_dialog',
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime.now(),
+                      );
+                    },
+                  );
+                },
+                child: const Text("Date Picker"),
+              ),
+              TextButton(
+                onPressed: () {
+                  showDialog<void>(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return TimePickerDialog(
+                        restorationId: 'date_picker_dialog',
+                        initialTime: TimeOfDay.fromDateTime(DateTime.now()),
+                      );
+                    },
+                  );
+                },
+                child: const Text("Time Picker"),
+              ),
+              const SizedBox(height: 20),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    // borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            "https://img.freepik.com/free-photo/sunset-silhouettes-trees-mountains-generative-ai_169016-29371.jpg"),
+                        fit: BoxFit.cover),
+                  ),
+                  child: GlassmorphicContainer(
+                      width: 350,
+                      height: 350,
+                      borderRadius: 5,
+                      blur: 5,
+                      alignment: Alignment.bottomCenter,
+                      border: 2,
+                      linearGradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.black.withOpacity(0.05),
+                          Colors.black.withOpacity(0.05),
+                        ],
+                        stops: const [
+                          0.1,
+                          1,
+                        ],
+                      ),
+                      borderGradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          const Color(0xFFffffff).withOpacity(0.5),
+                          const Color((0xFFFFFFFF)).withOpacity(0.5),
+                        ],
+                      ),
+                      child: const Center(
+                        child: Text("Hello"),
+                      )),
                 ),
-                child: const Center(child: Text("Dilog Box")),
+              ),
+            ],
+          ),
+          const SizedBox(height: 50),
+          Container(
+            height: 200,
+            width: 200,
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                color: Colors.amber,
+                width: 5,
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 20,
+                  spreadRadius: 2,
+                  offset: Offset(4, 4),
+                ),
+              ],
+              gradient: const LinearGradient(
+                colors: [
+                  Colors.pink,
+                  Colors.purple,
+                  Colors.red,
+                ],
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
               ),
             ),
-            const SizedBox(height: 30),
-            Row(
+            child: Stack(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (counter > 0) {
-                        counter--;
-                      }
-                    });
-                  },
-                  child: Container(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width / 3,
-                    // width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.amberAccent,
-                      borderRadius: BorderRadius.circular(20),
+                SizedBox.expand(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.5),
+                    child: Image.network(
+                      "https://fastly.picsum.photos/id/514/200/300.jpg?hmac=2SFAKrM0w5MkU7I_tQM9mq1m6POUDSPrTYu5tb5Sqlg",
+                      // https://fastly.picsum.photos/id/514/200/300.jpg?hmac=2SFAKrM0w5MkU7I_tQM9mq1m6POUDSPrTYu5tb5Sqlg
+                      fit: BoxFit.cover,
                     ),
-                    child: const Center(child: Text("-")),
                   ),
                 ),
-                Expanded(
-                  child: Center(
+                const Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 100, 100, 10),
                     child: Text(
-                      counter.toString(),
-                      style: const TextStyle(
-                        color: Colors.teal,
-                        fontSize: 18,
+                      "data",
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 30,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      counter++;
-                    });
-                  },
-                  child: Container(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width / 3,
-                    // width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.amberAccent,
-                      borderRadius: BorderRadius.circular(20),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(100, 10, 10, 100),
+                    child: Text(
+                      "new",
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
-                    child: const Center(child: Text("+")),
                   ),
                 ),
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+          const SizedBox(height: 30),
+          GestureDetector(
+            onTap: () {
+              _showMyDialog(context);
+            },
+            child: Container(
+              height: 50,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.amberAccent,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Center(child: Text("Dilog Box")),
+            ),
+          ),
+          const SizedBox(height: 30),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (counter > 0) {
+                      counter--;
+                    }
+                  });
+                },
+                child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width / 3,
+                  // width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.amberAccent,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Center(child: Text("-")),
+                ),
+              ),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    counter.toString(),
+                    style: const TextStyle(
+                      color: Colors.teal,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    counter++;
+                  });
+                },
+                child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width / 3,
+                  // width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.amberAccent,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Center(child: Text("+")),
+                ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
@@ -329,4 +491,11 @@ enum HomeTypes {
   home1,
   home2,
   homeOther,
+}
+
+enum MCQs {
+  mustafa,
+  ali,
+  mahnoor,
+  other,
 }
