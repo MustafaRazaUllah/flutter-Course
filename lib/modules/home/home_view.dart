@@ -18,9 +18,16 @@ class _HomeViewState extends State<HomeView> {
 
   MCQs mcqs = MCQs.other;
 
+  final List<String> entries = <String>['A', 'B', 'C', 'D'];
+  final List<int> colorCodes = <int>[600, 500, 100, 300];
+
+// Scaffold State Key
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       appBar: AppBar(
         elevation: 10,
         leading: IconButton(
@@ -68,7 +75,26 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: ListView(
         padding: const EdgeInsets.all(20.0),
+        // reverse: true,
         children: [
+          const SizedBox(height: 20),
+          ListView.builder(
+              shrinkWrap: true,
+              // physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(8),
+              itemCount: entries.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: Text('Entry ${entries[index]}'),
+                  subtitle: Text('Count $index'),
+                  tileColor: Colors.amber[colorCodes[index]],
+                );
+                // Container(
+                //   height: 50,
+                //   color: Colors.amber[colorCodes[index]],
+                //   child: Center(child: Text('Entry ${entries[index]}')),
+                // );
+              }),
           const SizedBox(height: 20),
           Column(
             children: [
@@ -415,6 +441,49 @@ class _HomeViewState extends State<HomeView> {
             ],
           )
         ],
+      ),
+      drawer: Container(
+        width: 300,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30),
+            bottomRight: Radius.circular(30),
+          ),
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 30),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                onPressed: () {
+                  _key.currentState!.closeDrawer();
+                },
+                icon: const Icon(Icons.close),
+              ),
+            ),
+            const SizedBox(height: 30),
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: Colors.red.withOpacity(0.1),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.asset("assets/backgrounds/mypic.png"),
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Text("Mustafa Raza")
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.menu),
+        onPressed: () => _key.currentState!.openDrawer(), // <-- Opens drawer
       ),
     );
   }
