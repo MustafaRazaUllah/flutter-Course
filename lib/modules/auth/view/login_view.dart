@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/modules/Root%20Navigation/View/root_navgation.dart';
 import 'package:flutter_application/modules/home/home_view.dart';
 
 import 'Components/custom_textfiled.dart';
@@ -68,7 +69,7 @@ class LoginView extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>  HomeView(),
+                          builder: (context) => const RootNavigationView(),
                         ),
                       );
                     },

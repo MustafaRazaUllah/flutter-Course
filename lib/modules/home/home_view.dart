@@ -19,6 +19,15 @@ class _HomeViewState extends State<HomeView> {
   MCQs mcqs = MCQs.other;
 
   final List<String> entries = <String>['A', 'B', 'C', 'D'];
+  final List<String> entries1 = <String>[
+    'Ali',
+    'Mustafa',
+    'Numan',
+    'Khizar',
+    'haider',
+    'Saiyan',
+    'Abbas'
+  ];
   final List<int> colorCodes = <int>[600, 500, 100, 300];
 
 // Scaffold State Key
@@ -78,10 +87,89 @@ class _HomeViewState extends State<HomeView> {
         // reverse: true,
         children: [
           const SizedBox(height: 20),
+          Wrap(
+            spacing: 8.0, // gap between adjacent chips
+            runSpacing: 4.0, // gap between lines
+            children: entries1
+                .map(
+                  (item) => Chip(
+                    label: Text(item),
+                  ),
+                )
+                .toList(),
+          ),
+          const SizedBox(height: 20),
+          MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            removeLeft: true,
+            removeRight: true,
+            removeBottom: true,
+            child: GridView.builder(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+              ),
+              itemCount: entries.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  margin: EdgeInsets.zero,
+                  color: Colors.purple[colorCodes[index]],
+                  child: Center(child: Text("Entry ${entries[index]}")),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 20),
+          GridView.count(
+            primary: false,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 3,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.teal[100],
+                child: const Text("He'd have you all unravel at the"),
+              ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.teal[200],
+                child: const Text('Heed not the rabble'),
+              ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.teal[300],
+                child: const Text('Sound of screams but the'),
+              ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.teal[400],
+                child: const Text('Who scream'),
+              ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.teal[500],
+                child: const Text('Revolution is coming...'),
+              ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.teal[600],
+                child: const Text('Revolution, they...'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
           ListView.builder(
               shrinkWrap: true,
               // physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(8),
+              padding: EdgeInsets.zero,
               itemCount: entries.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
