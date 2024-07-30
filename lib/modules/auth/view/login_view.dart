@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/modules/Root%20Navigation/View/root_navgation.dart';
-import 'package:flutter_application/modules/home/home_view.dart';
-
+import '../viewmodel/login_viewmode.dart';
 import 'Components/custom_textfiled.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+  LoginView({super.key});
 
+  final loginVM = LoginViewmode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,14 +32,16 @@ class LoginView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  const CustomTextfiled(
+                  CustomTextfiled(
                     labelText: "Email Address",
                     hintText: "Enter Email",
                     keyboardType: TextInputType.emailAddress,
+                    controller: loginVM.emailLogin,
                   ),
                   const SizedBox(height: 30),
-                  const CustomTextfiled(
+                  CustomTextfiled(
                     hintText: "Enter Password",
+                    controller: loginVM.passwordLogin,
                   ),
                   Align(
                     alignment: Alignment.centerRight,
@@ -59,6 +60,7 @@ class LoginView extends StatelessWidget {
                   const SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
+                      loginVM.onloginFunction();
                       // Navigator.pushAndRemoveUntil(
                       //   context,
                       //   MaterialPageRoute(
@@ -66,12 +68,12 @@ class LoginView extends StatelessWidget {
                       //   ),
                       //   (route) => false,
                       // );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RootNavigationView(),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const RootNavigationView(),
+                      //   ),
+                      // );
                     },
                     child: Container(
                       height: 50,

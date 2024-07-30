@@ -17,7 +17,7 @@ class _SlashViewState extends State<SlashView> {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const LoginView(),
+          builder: (context) =>  LoginView(),
         ),
       );
     });
