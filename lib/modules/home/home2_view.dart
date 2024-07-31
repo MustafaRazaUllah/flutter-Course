@@ -232,7 +232,7 @@ class DilogBoxTile extends StatelessWidget {
                     TextButton(
                       child: const Text('Toast'),
                       onPressed: () {
-                        AppToast().onSuccess("Hyee");
+                        CustomAppToast().onSuccess("Hyee");
                       },
                     ),
                     const SizedBox(width: 10),

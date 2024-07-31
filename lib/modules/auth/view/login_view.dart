@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/utils/custom_toast.dart';
 import '../viewmodel/login_viewmode.dart';
 import 'Components/custom_textfiled.dart';
 
@@ -15,6 +16,7 @@ class LoginView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,11 +39,17 @@ class LoginView extends StatelessWidget {
                     hintText: "Enter Email",
                     keyboardType: TextInputType.emailAddress,
                     controller: loginVM.emailLogin,
+                    onChange: (v) {
+                      print("object");
+                    },
                   ),
                   const SizedBox(height: 30),
                   CustomTextfiled(
                     hintText: "Enter Password",
                     controller: loginVM.passwordLogin,
+                    onChange: (v) {
+                      print("object");
+                    },
                   ),
                   Align(
                     alignment: Alignment.centerRight,
@@ -60,7 +68,8 @@ class LoginView extends StatelessWidget {
                   const SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
-                      loginVM.onloginFunction();
+                      loginVM.onloginFunction(context);
+                      // CustomAppToast().onSuccess("hello");
                       // Navigator.pushAndRemoveUntil(
                       //   context,
                       //   MaterialPageRoute(

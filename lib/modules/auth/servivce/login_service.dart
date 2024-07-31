@@ -5,9 +5,10 @@ import '../../../common/network/api_urls.dart';
 import '../../../utils/custom_toast.dart';
 
 mixin LoginService {
-  void onLoginService({
+  Future<bool> onLoginService({
     required Map body,
   }) async {
+    bool isResult = false;
     var response = await ApiClient().postRequest(
       url: ApiUrls.login,
       body: body,
@@ -15,14 +16,18 @@ mixin LoginService {
 
     var result = jsonDecode(response.body);
 
-    if (result["status"] == true) {
-      print("Success");
-      print(result["message"].toString());
-      // AppToast().onSuccess(result["message"].toString());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      if (result["status"] == true) {
+        isResult = true;
+        CustomAppToast().onSuccess(result["message"].toString());
+      } else {
+        CustomAppToast().onFail(result["message"].toString());
+      }
+    } else if (response.statusCode >= 400 || response.statusCode <= 404) {
+      CustomAppToast().onFail(result["message"].toString());
     } else {
-      print("Fail");
-      print(result["message"].toString());
-      // AppToast().onFail(result["message"].toString());
+      CustomAppToast().onFail("Some thing want wrong.");
     }
+    return isResult;
   }
 }
