@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_application/DB/cache_handler.dart';
+import 'package:flutter_application/modules/auth/view/login_view.dart';
 import 'package:flutter_application/modules/home/home2_view.dart';
 import 'package:flutter_application/utils/custom_toast.dart';
 import 'package:glassmorphism/glassmorphism.dart';
@@ -54,9 +56,17 @@ class _HomeViewState extends State<HomeView> {
         actions: [
           IconButton(
             icon: const Icon(
-              Icons.notifications_active_outlined,
+              Icons.logout,
             ),
-            onPressed: () {},
+            onPressed: () async {
+              await CacheHandler().logout();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => LoginView(),
+                ),
+                (route) => false,
+              );
+            },
           ),
           IconButton(
             icon: const Icon(
