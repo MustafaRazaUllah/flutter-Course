@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../Profile/View/profile.dart';
-import '../../home/home2_view.dart';
-import '../../home/home_view.dart';
+import '../../home/View/home2_view.dart';
+import '../../home/View/home_view.dart';
 
 class RootNavigationView extends StatefulWidget {
   const RootNavigationView({super.key});

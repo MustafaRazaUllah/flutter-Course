@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application/DB/cache_handler.dart';
 import 'package:flutter_application/modules/auth/view/login_view.dart';
-import 'package:flutter_application/modules/home/home2_view.dart';
+import 'package:flutter_application/modules/home/View/home2_view.dart';
 import 'package:flutter_application/utils/custom_toast.dart';
+import 'package:flutter_application/utils/loader.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+
+import '../Viewmodel/home_viewmodel.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -19,6 +23,24 @@ class _HomeViewState extends State<HomeView> {
   bool isChecked = false;
 
   MCQs mcqs = MCQs.other;
+
+  final homeVM = HomeViewmodel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getProfile();
+  }
+
+  void getProfile() async {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      bool isResult = await homeVM.getProfileMethod(context);
+      if (isResult) {
+        setState(() {});
+      }
+    });
+  }
 
   final List<String> entries = <String>['A', 'B', 'C', 'D'];
   final List<String> entries1 = <String>[
@@ -59,13 +81,20 @@ class _HomeViewState extends State<HomeView> {
               Icons.logout,
             ),
             onPressed: () async {
-              await CacheHandler().logout();
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => LoginView(),
-                ),
-                (route) => false,
-              );
+              try {
+                showLoadingIndicator(context: context);
+                await CacheHandler().logout();
+                hideOpenDialog(context: context);
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => LoginView(),
+                  ),
+                  (route) => false,
+                );
+              } catch (e) {
+                hideOpenDialog(context: context);
+                print("object $e");
+              }
             },
           ),
           IconButton(
@@ -108,6 +137,8 @@ class _HomeViewState extends State<HomeView> {
                 )
                 .toList(),
           ),
+          const SizedBox(height: 20),
+          Text("My Email is ${homeVM.userData.user.email}"),
           const SizedBox(height: 20),
           MediaQuery.removePadding(
             context: context,

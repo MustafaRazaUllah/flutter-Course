@@ -20,4 +20,23 @@ class ApiClient {
 
     return response;
   }
+
+  Future<Response> getRequest({
+    required String url,
+    required String token,
+  }) async {
+    print("url $url");
+    print("token $token");
+    var client = https.Client();
+    var uri = Uri.parse(url);
+    var response = await client.get(
+      uri,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+    );
+
+    return response;
+  }
 }

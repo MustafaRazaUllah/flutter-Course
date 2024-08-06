@@ -69,20 +69,6 @@ class LoginView extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       loginVM.onloginFunction(context);
-                      // CustomAppToast().onSuccess("hello");
-                      // Navigator.pushAndRemoveUntil(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const HomeView(),
-                      //   ),
-                      //   (route) => false,
-                      // );
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const RootNavigationView(),
-                      //   ),
-                      // );
                     },
                     child: Container(
                       height: 50,
