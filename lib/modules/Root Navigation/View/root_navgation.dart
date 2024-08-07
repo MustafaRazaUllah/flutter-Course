@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/utils/local_notification_handler.dart';
 
 import '../../Profile/View/profile.dart';
 import '../../home/View/home2_view.dart';
@@ -22,6 +23,26 @@ class _RootNavigationViewState extends State<RootNavigationView> {
     ),
     const Profile(),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    notificationHandler();
+  }
+
+  void notificationHandler() async {
+    NotificationServices notificationServices = NotificationServices();
+
+    notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isTokenRefresh();
+    String fcmToken = await notificationServices.getDeviceToken();
+
+    print("fcmToken $fcmToken");
+  }
 
   @override
   Widget build(BuildContext context) {
