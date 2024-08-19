@@ -5,17 +5,24 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class MapViewScreen extends StatelessWidget {
-  MapViewScreen({super.key});
+class MapViewScreen extends StatefulWidget {
+  final double lat;
+  final double lng;
+  const MapViewScreen({
+    super.key,
+    required this.lat,
+    required this.lng,
+  });
 
+  @override
+  State<MapViewScreen> createState() => _MapViewScreenState();
+}
+
+class _MapViewScreenState extends State<MapViewScreen> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(28.425423, 70.284895),
-    zoom: 19.0,
-  );
-
+  CameraPosition? _kGooglePlex;
   Future<void> _checkPermissions() async {
     var status = await Permission.location.status;
     if (status.isDenied) {
@@ -33,13 +40,27 @@ class MapViewScreen extends StatelessWidget {
     );
     print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
 
-    var kLake = CameraPosition(
+    var myCurrentLocation = CameraPosition(
       target: LatLng(position.latitude, position.longitude),
       zoom: 19.0,
     );
 
     final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(kLake));
+    await controller
+        .animateCamera(CameraUpdate.newCameraPosition(myCurrentLocation));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _kGooglePlex = CameraPosition(
+      target: LatLng(widget.lat, widget.lng),
+      zoom: 19.0,
+    );
+
+    _goToCurrentLocation();
   }
 
   @override
@@ -50,7 +71,11 @@ class MapViewScreen extends StatelessWidget {
       ),
       body: GoogleMap(
         mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
+        initialCameraPosition: _kGooglePlex ??
+            const CameraPosition(
+              target: LatLng(25.170745, 55.292187),
+              zoom: 19.0,
+            ),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },

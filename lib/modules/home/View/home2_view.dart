@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/utils/custom_toast.dart';
+import 'package:flutter_application/utils/loader.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../Map/View/map_view.dart';
 import 'home_view.dart';
@@ -186,13 +190,32 @@ class _Home2ViewState extends State<Home2View> {
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>  MapViewScreen(),
-                    ),
-                  );
+                onPressed: () async {
+                  try {
+                    showLoadingIndicator(context: context);
+
+                    // Check permissions
+                    await _checkPermissions();
+
+                    // Get current position
+                    Position position = await Geolocator.getCurrentPosition(
+                      desiredAccuracy: LocationAccuracy.high,
+                    );
+                    hideOpenDialog(context: context);
+                    if (position.latitude > 0) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MapViewScreen(
+                            lat: position.latitude,
+                            lng: position.longitude,
+                          ),
+                        ),
+                      );
+                    }
+                  } catch (e) {
+                    hideOpenDialog(context: context);
+                  }
                 },
                 child: const Text(
                   "View Map",
@@ -203,6 +226,13 @@ class _Home2ViewState extends State<Home2View> {
         ),
       ),
     );
+  }
+}
+
+Future<void> _checkPermissions() async {
+  var status = await Permission.location.status;
+  if (status.isDenied) {
+    await Permission.location.request();
   }
 }
 
