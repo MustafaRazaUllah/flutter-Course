@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/utils/custom_toast.dart';
 import 'package:flutter_application/utils/loader.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/route_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -203,15 +204,21 @@ class _Home2ViewState extends State<Home2View> {
                     );
                     hideOpenDialog(context: context);
                     if (position.latitude > 0) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MapViewScreen(
-                            lat: position.latitude,
-                            lng: position.longitude,
-                          ),
+                      Get.to(
+                        MapViewScreen(
+                          lat: position.latitude,
+                          lng: position.longitude,
                         ),
                       );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => MapViewScreen(
+                      //       lat: position.latitude,
+                      //       lng: position.longitude,
+                      //     ),
+                      //   ),
+                      // );
                     }
                   } catch (e) {
                     hideOpenDialog(context: context);

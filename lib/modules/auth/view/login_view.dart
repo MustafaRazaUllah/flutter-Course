@@ -92,7 +92,7 @@ class LoginView extends StatelessWidget {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                     },
                     child: Container(
                       height: 50,

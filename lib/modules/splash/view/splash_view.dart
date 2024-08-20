@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/DB/cache_handler.dart';
 import 'package:flutter_application/modules/Root%20Navigation/View/root_navgation.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/utils.dart';
 
 import '../../auth/view/login_view.dart';
 
@@ -25,20 +27,22 @@ class _SlashViewState extends State<SlashView> {
     String accessToken = await CacheHandler().getToken();
 
     if (accessToken.isNotEmpty) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const RootNavigationView(),
-        ),
-        (route) => false,
-      );
+      Get.offAll(const RootNavigationView());
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => const RootNavigationView(),
+      //   ),
+      //   (route) => false,
+      // );
     } else {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => LoginView(),
-        ),
-        (route) => false,
-      );
+      Get.offAll(LoginView());
+      // Navigator.of(context).pushAndRemoveUntil(
+      //   MaterialPageRoute(
+      //     builder: (context) => LoginView(),
+      //   ),
+      //   (route) => false,
+      // );
     }
   }
 

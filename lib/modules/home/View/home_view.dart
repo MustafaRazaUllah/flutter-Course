@@ -7,6 +7,8 @@ import 'package:flutter_application/modules/auth/view/login_view.dart';
 import 'package:flutter_application/modules/home/View/home2_view.dart';
 import 'package:flutter_application/utils/custom_toast.dart';
 import 'package:flutter_application/utils/loader.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/utils.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
 import '../Viewmodel/home_viewmodel.dart';
@@ -101,21 +103,22 @@ class _HomeViewState extends State<HomeView> {
             icon: const Icon(
               Icons.message,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.snackbar(
+                "Hello",
+                "World",
+                backgroundColor: Colors.white,
+              );
+            },
           ),
           IconButton(
             icon: const Icon(
               Icons.search,
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Home2View(
-                    title: 'This is test',
-                    type: HomeTypes.home2,
-                  ),
-                ),
+              Get.defaultDialog(
+                title: "Search",
+                content: const Text("data"),
               );
             },
           ),

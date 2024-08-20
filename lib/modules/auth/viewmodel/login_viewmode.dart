@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/utils/loader.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/utils.dart';
 
 import '../../Root Navigation/View/root_navgation.dart';
 import '../model/auth_model.dart';
@@ -24,13 +26,14 @@ class LoginViewmode with LoginService {
       // print("isResultisResultisResultisResultisResultisResult $isResult");
       if (result.token.isNotEmpty) {
         hideOpenDialog(context: context);
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const RootNavigationView(),
-          ),
-          (route) => false,
-        );
+        Get.offAll(const RootNavigationView());
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => const RootNavigationView(),
+        //   ),
+        //   (route) => false,
+        // );
       } else {
         hideOpenDialog(context: context);
       }
