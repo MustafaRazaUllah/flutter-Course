@@ -113,7 +113,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           IconButton(
             icon: const Icon(
-              Icons.search,
+              Icons.search,   
             ),
             onPressed: () {
               Get.defaultDialog(

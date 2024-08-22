@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/modules/Getx%20Structure/View/getx_structure.dart';
 import 'package:flutter_application/utils/custom_toast.dart';
 import 'package:flutter_application/utils/loader.dart';
 import 'package:geolocator/geolocator.dart';
@@ -226,6 +227,18 @@ class _Home2ViewState extends State<Home2View> {
                 },
                 child: const Text(
                   "View Map",
+                ),
+              ),
+            ),
+            const SizedBox(height: 100),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: () async {
+                  Get.to(StructureView());
+                },
+                child: const Text(
+                  "Getx Structure",
                 ),
               ),
             )
