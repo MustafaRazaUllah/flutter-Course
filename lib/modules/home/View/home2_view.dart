@@ -209,7 +209,7 @@ class _Home2ViewState extends State<Home2View> {
                         MapViewScreen(
                           lat: position.latitude,
                           lng: position.longitude,
-                        ),
+                        ),   
                       );
                       // Navigator.push(
                       //   context,

@@ -70,7 +70,7 @@ class StructureView extends StatelessWidget {
                     },
                   ),
                   signButton(
-                    "/",
+                    "/",    
                     callback: () {
                       viewmodel.calculeteValues(
                         "/",
